@@ -1,5 +1,7 @@
-const STOREGE_KEY = 'feedback - form - state';
+
 import throttle from "lodash.throttle";
+const STOREGE_KEY = 'feedback - form - state';
+
 const formData = {};
 const formEl = document.querySelector('.feedback-form');
 const messageEl = document.querySelector('textarea');
