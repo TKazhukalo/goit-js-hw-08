@@ -16,7 +16,7 @@ formEl.addEventListener('input', throttle(onTextareaInput,500));
    // console.log(formDataParse);
    
 })*/
-populateFormData();
+
 function onFormSubmit(evt) {
     evt.preventDefault();
     if (inputEl.value === '' || messageEl.value === '') {
@@ -42,3 +42,4 @@ function populateFormData() {
         inputEl.value = savedMessage.email;
     }
 }
+populateFormData();
