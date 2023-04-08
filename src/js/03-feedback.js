@@ -7,32 +7,38 @@ const formEl = document.querySelector('.feedback-form');
 const messageEl = document.querySelector('textarea');
 const inputEl = document.querySelector('input');
 formEl.addEventListener('submit', onFormSubmit);
-messageEl.addEventListener('input', throttle(onTextareaInput,500) );
-formEl.addEventListener('input', e => {
-    formData[e.target.name] = e.target.value;
+formEl.addEventListener('input', throttle(onTextareaInput,500));
+/*formEl.addEventListener('input', e => {
+   
     const formDataString = JSON.stringify(formData);
     const formDataParse = JSON.parse(formDataString);
-    console.log(formDataParse);
-})
-populateTextarea();
+    localStorage.setItem(STOREGE_KEY, formDataString);
+   // console.log(formDataParse);
+   
+})*/
+populateFormData();
 function onFormSubmit(evt) {
     evt.preventDefault();
-   
-    console.log('Отправить форму');
+    if (inputEl.value === '' || messageEl.value === '') {
+return alert( 'Введіть дані');
+  }
+    console.log(JSON.parse(localStorage.getItem(STOREGE_KEY)));
 
     localStorage.removeItem(STOREGE_KEY);
         evt.currentTarget.reset();
 }
 
 function onTextareaInput(evt) {
-    const message = evt.target.value;
-    localStorage.setItem(STOREGE_KEY, message);
+     formData[evt.target.name] = evt.target.value;
+   
+    localStorage.setItem(STOREGE_KEY, JSON.stringify(formData));
 }
 
 
-function populateTextarea() {
-    const savedMessage = localStorage.getItem(STOREGE_KEY);
+function populateFormData() {
+    const savedMessage = JSON.parse(localStorage.getItem(STOREGE_KEY));
     if (savedMessage) {
-        messageEl.value = savedMessage;
+        messageEl.value = savedMessage.message;
+        inputEl.value = savedMessage.email;
     }
 }
